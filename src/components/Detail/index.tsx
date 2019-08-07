@@ -3,6 +3,8 @@ import React from 'react';
 import { Plant } from '../../containers/Detail';
 import fakeImg from '../../100228.jpg';
 
+import styles from './style.module.scss';
+
 interface IProps {
   plant: Plant;
 }
@@ -31,9 +33,9 @@ const propNames = {
 const plantDetailCard = (prop: PropNames, data: string) => {
   if (!data) return;
   return (
-    <li>
-      <h3>{propNames[prop]}</h3>
-      <p>{data}</p>
+    <li className={styles.infoCard} key={prop}>
+      <h3 className={styles.infoHeading}>{propNames[prop]}</h3>
+      <p className={styles.infoContent}>{data}</p>
     </li>
   );
 };
@@ -48,11 +50,13 @@ const DetailView: React.FC<IProps> = (props) => {
   detailData.splice(categoryIndex, 1);
 
   return (
-    <main>
-      <h1>{props.plant.name}</h1>
-      <span>#{props.plant.category}</span>
-      <img src={fakeImg} alt={props.plant.name} />
-      <h2>{props.plant.name} 상세정보</h2>
+    <main className={styles.main}>
+      <h1 className={styles.name}>{props.plant.name}</h1>
+      <span className={styles.category}>#{props.plant.category}</span>
+      <div className={styles.imageContainer}>
+        <img className={styles.image} src={fakeImg} alt={props.plant.name} />
+      </div>
+      <h2 className="readable-hidden">{props.plant.name} 상세정보</h2>
       <ul>
         {detailData.map((data) =>
           plantDetailCard(data as PropNames, props.plant[data as PropNames])

@@ -1,0 +1,58 @@
+.main {
+  padding: 30px;
+  background-color: #f9f9f9;
+}
+
+.name {
+  font-size: 26px;
+  margin-left: 15px;
+}
+
+.category {
+  display: inline-block;
+  margin: 8px 0 10px;
+  font-size: 14px;
+  opacity: 0.5;
+  margin-left: 15px;
+}
+
+.imageContainer {
+  width: 100%;
+  display: block;
+  // height: 100vw * 0.66;
+  padding-bottom: 66.6%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 16px;
+}
+
+.image {
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.infoCard {
+  margin: 15px 0;
+  padding: 25px;
+  border-radius: 15px;
+  background-color: #fff;
+
+  &:first-child {
+    margin-top: 25px;
+  }
+}
+
+.infoHeading {
+  font-size: 16px;
+}
+
+.infoContent {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+  vertical-align: bottom;
+}

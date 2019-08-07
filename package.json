@@ -38,7 +38,9 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/node-sass": "^4.11.0",
     "@types/react-helmet": "^5.0.9",
-    "@types/react-router-dom": "^4.3.4"
+    "@types/react-router-dom": "^4.3.4",
+    "node-sass": "^4.12.0"
   }
 }
