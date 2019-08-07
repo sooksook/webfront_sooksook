@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import { Plant } from '../../containers/Detail';
 import fakeImg from '../../100228.jpg';
@@ -50,19 +51,48 @@ const DetailView: React.FC<IProps> = (props) => {
   detailData.splice(categoryIndex, 1);
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.name}>{props.plant.name}</h1>
-      <span className={styles.category}>#{props.plant.category}</span>
-      <div className={styles.imageContainer}>
-        <img className={styles.image} src={fakeImg} alt={props.plant.name} />
-      </div>
-      <h2 className="readable-hidden">{props.plant.name} 상세정보</h2>
-      <ul>
-        {detailData.map((data) =>
-          plantDetailCard(data as PropNames, props.plant[data as PropNames])
-        )}
-      </ul>
-    </main>
+    <>
+      <Helmet>
+        <title>{props.plant.name} | 쑥쑥, 반려식물 정보 어플리케이션</title>
+        <meta
+          name="description"
+          content={
+            props.plant.name +
+            '에 대한 정보입니다. - 반려식물 정보 어플리케이션 쑥쑥'
+          }
+        />
+        <meta name="keyword" content={props.plant.name + ', 쑥쑥, 반려식물, 반려식물 정보, 식물, plant, 고무나무, 틸란드시아, 스투키'} />
+        <meta
+          property="og:title"
+          content={props.plant.name + ' | 쑥쑥, 반려식물 정보 어플리케이션'}
+        />
+        <meta
+          property="og:site_name"
+          content="쑥쑥, 반려식물 정보 어플리케이션"
+        />
+        <meta
+          property="og:description"
+          content={
+            props.plant.name +
+            '에 대한 정보입니다. - 반려식물 정보 어플리케이션 쑥쑥'
+          }
+        />
+          <meta property="og:image" content={fakeImg} />
+      </Helmet>
+      <main className={styles.main}>
+        <h1 className={styles.name}>{props.plant.name}</h1>
+        <span className={styles.category}>#{props.plant.category}</span>
+        <div className={styles.imageContainer}>
+          <img className={styles.image} src={fakeImg} alt={props.plant.name} />
+        </div>
+        <h2 className="readable-hidden">{props.plant.name} 상세정보</h2>
+        <ul>
+          {detailData.map((data) =>
+            plantDetailCard(data as PropNames, props.plant[data as PropNames])
+          )}
+        </ul>
+      </main>
+    </>
   );
 };
 
