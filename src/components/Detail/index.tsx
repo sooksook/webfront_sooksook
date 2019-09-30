@@ -1,94 +1,65 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { Plant } from '../../containers/Detail';
-import fakeImg from '../../100228.jpg';
+import { fetchPlant } from '../../ducks/plant';
+import IStore from '../../ducks/interface';
+
+import DetailHeader from './DetailHeader';
+import PlantDetailCard from './PlantDetailCard';
+import Loading from '../Common/Loading';
+import ErrorComponent from '../../common/ErrorComponent';
 
 import styles from './style.module.scss';
 
-interface IProps {
-  plant: Plant;
+export enum PlantInfo {
+  difficulty = '난이도',
+  sunlight = '햇빛',
+  growthType = '온도',
+  place = '장소',
+  water = '물주기',
+  soil = '토양',
+  temparature = '온도2'
 }
 
-type PropNames =
-  | 'difficulty'
-  | 'light'
-  | 'temperature'
-  | 'place'
-  | 'water'
-  | 'soil'
-  | 'fertilizer'
-  | 'breeding';
-
-const propNames = {
-  difficulty: '난이도',
-  light: '햇빛',
-  temperature: '온도',
-  place: '장소',
-  water: '물주기',
-  soil: '흙',
-  fertilizer: '비료',
-  breeding: '번식'
-};
-
-const plantDetailCard = (prop: PropNames, data: string) => {
-  if (!data) return;
-  return (
-    <li className={styles.infoCard} key={prop}>
-      <h3 className={styles.infoHeading}>{propNames[prop]}</h3>
-      <p className={styles.infoContent}>{data}</p>
-    </li>
-  );
-};
-
-const DetailView: React.FC<IProps> = (props) => {
-  const detailData = Object.keys(props.plant);
-
-  const nameIndex = detailData.indexOf('name');
-  detailData.splice(nameIndex, 1);
-
-  const categoryIndex = detailData.indexOf('category');
-  detailData.splice(categoryIndex, 1);
-
+const DetailView: React.FC<RouteComponentProps<{ id: string }>> = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPlant(props.match.params.id));
+  });
+  const { plant, error, loading } = useSelector((state: IStore) => state.plant);
+  const {
+    name,
+    category,
+    engName,
+    favorite,
+    imageSource,
+    imageUrl,
+    plantId,
+    ...data
+  } = plant;
+  if (loading) return <Loading />;
+  if (error) return <ErrorComponent />;
   return (
     <>
-      <Helmet>
-        <title>{props.plant.name} | 쑥쑥, 반려식물 정보 어플리케이션</title>
-        <meta
-          name="description"
-          content={
-            props.plant.name +
-            '에 대한 정보입니다. - 반려식물 정보 어플리케이션 쑥쑥'
-          }
-        />
-        <meta name="keyword" content={props.plant.name + ', 쑥쑥, 반려식물, 반려식물 정보, 식물, plant, 고무나무, 틸란드시아, 스투키'} />
-        <meta
-          property="og:title"
-          content={props.plant.name + ' | 쑥쑥, 반려식물 정보 어플리케이션'}
-        />
-        <meta
-          property="og:site_name"
-          content="쑥쑥, 반려식물 정보 어플리케이션"
-        />
-        <meta
-          property="og:description"
-          content={
-            props.plant.name +
-            '에 대한 정보입니다. - 반려식물 정보 어플리케이션 쑥쑥'
-          }
-        />
-          <meta property="og:image" content={fakeImg} />
-      </Helmet>
+      <DetailHeader name={name} imageUrl={imageUrl} />
       <main className={styles.main}>
-        <h1 className={styles.name}>{props.plant.name}</h1>
-        <span className={styles.category}>#{props.plant.category}</span>
+        <h1 className={styles.name}>{name}</h1>
+        <span className={styles.category}>#{category}</span>
         <div className={styles.imageContainer}>
-          <img className={styles.image} src={fakeImg} alt={props.plant.name} />
+          <img className={styles.image} src={imageUrl} alt={imageSource} />
         </div>
-        <h2 className="readable-hidden">{props.plant.name} 상세정보</h2>
+        <h2 className="readable-hidden">{name} 상세정보</h2>
         <ul>
-          {detailData.map((data) =>
-            plantDetailCard(data as PropNames, props.plant[data as PropNames])
+          {Object.entries(data).map(
+            ([info, value]) =>
+              value && (
+                <PlantDetailCard
+                  key={info}
+                  info={info as keyof typeof PlantInfo}
+                  value={value}
+                />
+              )
           )}
         </ul>
       </main>
@@ -96,4 +67,4 @@ const DetailView: React.FC<IProps> = (props) => {
   );
 };
 
-export default DetailView;
+export default withRouter(DetailView);
