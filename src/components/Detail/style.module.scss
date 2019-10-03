@@ -1,32 +1,40 @@
+@function rv($px) {
+  @return ($px / 3.6 + vw);
+}
+$inner-left-padding: rv(22);
+
 .main {
-  padding: 30px;
+  padding: rv(17) rv(32);
   background-color: #f9f9f9;
+  line-height: rv(24);
 }
 
 .name {
-  font-size: 26px;
-  margin-left: 15px;
+  font-size: rv(26);
+  margin-left: $inner-left-padding;
+  margin-bottom: rv(6);
 }
 
 .category {
   display: inline-block;
-  margin: 8px 0 10px;
-  font-size: 14px;
+  font-size: rv(14);
   opacity: 0.5;
-  margin-left: 15px;
+  margin-left: $inner-left-padding;
+  margin-bottom: rv(18);
 }
 
 .imageContainer {
   width: 100%;
   display: block;
-  // height: 100vw * 0.66;
   padding-bottom: 66.6%;
+  margin-bottom: rv(21);
   overflow: hidden;
   position: relative;
-  border-radius: 16px;
 }
 
 .image {
+  border-radius: rv(16);
+  height: rv(200);
   width: 100%;
   display: block;
   position: absolute;
@@ -35,24 +43,47 @@
   transform: translate3d(-50%, -50%, 0);
 }
 
-.infoCard {
-  margin: 15px 0;
-  padding: 25px;
-  border-radius: 15px;
-  background-color: #fff;
+.menu {
+  font-size: rv(14);
+  margin-bottom: rv(12);
+  li {
+    margin-left: rv(11);
+    padding: 0 rv(11);
+    display: inline-block;
+  }
 
-  &:first-child {
-    margin-top: 25px;
+  .clicked {
+    color: #0cbc7b;
+    font-weight: 700;
   }
 }
 
+.infoContainer {
+  display: flex;
+}
+
+.infoCardContainer {
+  width: 100%;
+  flex: 1 0 100%;
+}
+
+.infoCard {
+  margin: 15px 0;
+  padding: rv(26) rv(22);
+  border-radius: 15px;
+  background-color: #fff;
+}
+
 .infoHeading {
-  font-size: 16px;
+  font-size: rv(16);
+  font-weight: 700;
 }
 
 .infoContent {
-  margin-top: 8px;
-  font-size: 14px;
+  margin-top: rv(10);
+  font-size: rv(14);
+  line-height: rv(23);
   vertical-align: bottom;
-  font-weight: 300;
+  font-weight: 400;
+  opacity: 0.9;
 }
