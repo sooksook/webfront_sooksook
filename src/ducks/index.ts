@@ -2,10 +2,14 @@ import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 
 import { plantEdic, plantReducer } from './plant';
+import { favoriteEpic, favoriteReducer } from './favortie';
 
-const rootEpic = combineEpics(plantEdic);
+const rootEpic = combineEpics(plantEdic, favoriteEpic);
 
-const rootReducer = combineReducers({ plant: plantReducer });
+const rootReducer = combineReducers({
+  plant: plantReducer,
+  favorites: favoriteReducer
+});
 
 const epicMiddleware = createEpicMiddleware();
 

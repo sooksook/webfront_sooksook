@@ -1,0 +1,39 @@
+@function rv($px) {
+  @return ($px / 3.6 + vw);
+}
+$inner-left-padding: rv(22);
+
+// TODO: 공통 레이아웃으로 빼기
+.main {
+  padding: rv(17) rv(32);
+  background-color: #f9f9f9;
+  line-height: rv(24);
+}
+
+.name {
+  font-size: rv(26);
+  margin-left: $inner-left-padding;
+  margin-bottom: rv(22);
+}
+
+.image {
+  margin-bottom: rv(23);
+  border-radius: rv(16);
+  width: 100%;
+  padding-bottom: 66%;
+  display: block;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.plantName {
+  font-size: rv(14);
+  padding: rv(4) rv(10);
+  background-color: #fff;
+  position: absolute;
+  bottom: rv(16);
+  right: rv(16);
+  border-radius: rv(15);
+}
