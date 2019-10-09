@@ -8,6 +8,7 @@ $inner-left-padding: rv(22);
   padding: rv(17) rv(32);
   background-color: #f9f9f9;
   line-height: rv(24);
+  min-height: 100vh;
 }
 
 .name {
@@ -36,4 +37,19 @@ $inner-left-padding: rv(22);
   bottom: rv(16);
   right: rv(16);
   border-radius: rv(15);
+}
+
+.icon {
+  background-image: url(../../asset/icon/icon-splite.png);
+  background-size: rv(400);
+  background-repeat: no-repeat;
+  background-position: rv(-315) rv(-69);
+  &.favorite {
+    background-position: rv(-345) rv(-69);
+  }
+  width: rv(26);
+  height: rv(26);
+  position: absolute;
+  top: -5px;
+  left: 20px;
 }

@@ -9,7 +9,7 @@ import IStore from '../../ducks/interface';
 
 import DetailHeader from './DetailHeader';
 import PlantDetailCard from './PlantDetailCard';
-// import Loading from '../Common/Loading';
+import Loading from '../Common/Loading';
 // import ErrorComponent from '../../common/ErrorComponent';
 
 import styles from './style.module.scss';
@@ -28,8 +28,8 @@ export enum PlantInfo {
 
 const DetailView: React.FC<RouteComponentProps<{ id: string }>> = (props) => {
   const dispatch = useDispatch();
-  // TODO: error, loading component
-  const { plant } = useSelector((state: IStore) => state.plant);
+  // TODO: error component
+  const { plant, loading } = useSelector((state: IStore) => state.plant);
   useEffect(() => {
     dispatch(fetchPlant(props.match.params.id));
   }, [props.match.params.id, dispatch]);
@@ -44,8 +44,8 @@ const DetailView: React.FC<RouteComponentProps<{ id: string }>> = (props) => {
     plantId,
     ...data
   } = plant;
-  // if (loading) return <Loading />;
   // if (error) return <ErrorComponent />;
+  if (loading) return <Loading />;
   return (
     <>
       <DetailHeader name={name} imageUrl={imageUrl} />
